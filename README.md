@@ -38,6 +38,7 @@ You can also pass in an options object instead, if you want more control over th
 * **callback** {function} - A callback for when the user clicks either button, value is `true` if they clicked the "OK" button, `false` if they clicked the "cancel" button
 * **yes** {function} - A callback for when the user clicks "OK" - is passed the jQuery object for the clicked element
 * **no** {function} - A callback for when the user clicks "Cancel" - is passed the jQuery object for the clicked element
+* **condition** {function} - A function to determine if we actually want to show the confirmation box
 * **buttonOk** {String} - Optionally set the text for the "OK" button, defualt is "OK"
 * **buttonCancel** {String} - Optionally set the text for the "Cancel" button, default is "Cancel"
 

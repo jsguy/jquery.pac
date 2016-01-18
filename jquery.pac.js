@@ -1,6 +1,7 @@
 /*
     jquery.pac.js - Prompt, Alert, Confirm integration for jQuery UI made easy.
     Copyright (c) 2016 jsguy
+    https://github.com/jsguy/jquery.pac
     MIT licensed
  */
 (function ($) {
@@ -270,7 +271,7 @@
                                 }
                             }
                         }
-                    }, $.isFunction(args.text) ? args.text() : args.text);
+                    }, $.isFunction(args.title) ? args.title() : args.title);
                     return false;
                 }
             });
