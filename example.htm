@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery,pac.js test page</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="jquery.pac.js"></script>
+	<style>
+		body, html {font-family: sans-serif; font-size: 100%; padding: 0; margin: 0;}
+		.body {margin: 0 auto; width: 60rem; padding: 1rem; background: #f4f4f4}
+	</style>
+</head>
+<body>
+
+	<div class="body">
+		<h1></h1>
+		<button id="p1">Basic prompt</button>
+
+		<button id="a1">Basic alert</button>
+
+		<button id="c1">Basic confirm</button>
+
+		<form id="conform">
+			<label for="balloons">How many balloons?</label>
+			<input id="balloons" type="text">
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+
+	<script>
+
+		//	Our OK button is a little "special"...
+		$.extend($.pac.config, {
+			buttonOKLabel: "Okelydokely"
+		});
+
+		//	Basic prompt
+		$('#p1').prompt("How many red balloons?", function(value, result){
+			$.alert(result?
+				"You want: " + value + " balloons" + (value == 99? ", Nina would be proud!": "!"):
+				"Oh, you don't want any?");
+		});
+
+		//	Click to say g'day
+		$('#a1').alert("Hello!");
+
+		//	Click to confirm
+		$('#c1').confirm("You sure?", function(value){
+			$.alert(value? "I'm glad you're sure!": "Ok, cancel it is!");
+		});
+
+		//	Using different events
+		$('#c2').on('mousedown', function(){
+			$.confirm("You sure?", null, function(value){
+				$.alert(value? "Yep": "Nope");
+			});
+		});
+
+		//	Form submit prompt only if no value, do some rudimentary validation
+		$("#conform").on('submit', function(e){
+			var $i = $("#balloons"),
+				val = $i.val(),
+				promptTitle = function(value){
+					return isNaN(value)? "Sir, that's not a number, how many balloons?": "You must tell us, how many balloons please!?";
+				}
+				showPrompt = function(title){
+					$.prompt(title, function(value, result){
+						if(result) {
+							if(value == "" || isNaN(value)) {
+								showPrompt(promptTitle(value));
+							} else {
+								$i.val(value);
+								$.alert("This could now be submitted, with " + value + " balloon(s).");
+							}
+						}
+					});
+				};
+			if(val == "" || isNaN(val)) {
+				showPrompt(promptTitle(val));
+			} else {
+				$.alert("This could now be submitted, with " + val + " balloon(s).");
+			}
+			e.preventDefault();
+			return false;
+		});
+
+
+	</script>
+
+</body>
+</html>
