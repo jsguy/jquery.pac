@@ -22,7 +22,7 @@
     $.prompt = function (text, cb, title, buttonOk, buttonCancel) {
         cb = cb || function () { };
         var $el = $(['<div>',
-            '<div>' + text + '</div>', 
+            '<div>' + text + '</div>',
             '<div><input type="text" class="promptInput" value=""></div>',
             '</div>'
         ].join("\n"));
@@ -83,7 +83,7 @@
     //  
     $.fn.prompt = function (args, callback) {
         args = args || {};
-        if($.type(args) === "string") {
+        if ($.type(args) === "string") {
             args = {
                 text: args
             };
@@ -95,7 +95,7 @@
                     e.preventDefault();
                     $.prompt($.isFunction(args.text) ? args.text() : args.text, function (value, result) {
                         callback = callback || args.callback;
-                        if(callback) {
+                        if (callback) {
                             callback(value, result);
                         } else {
                             if (result) {
@@ -108,7 +108,7 @@
                                 }
                             }
                         }
-                    }, $.isFunction(args.title) ? args.title() : args.title);
+                    }, $.isFunction(args.title) ? args.title() : args.title, args.buttonOk, args.buttonCancel);
                     return false;
                 }
             });
@@ -131,7 +131,7 @@
                     text: $.pac.config.buttonOKLabel,
                     click: function () {
                         $(this).dialog("close");
-                        if(callback) {
+                        if (callback) {
                             callback();
                         }
                         //  Remove dialog
@@ -159,7 +159,7 @@
     //
     $.fn.alert = function (args, callback) {
         args = args || {};
-        if($.type(args) === "string") {
+        if ($.type(args) === "string") {
             args = {
                 text: args
             };
@@ -167,7 +167,7 @@
         $(this).each(function (idx, el) {
             $(el).click(function (e) {
                 e.preventDefault();
-                $.alert($.isFunction(args.text) ? args.text(): args.text, $.isFunction(args.title) ? args.title(): args.title, callback);
+                $.alert($.isFunction(args.text) ? args.text() : args.text, $.isFunction(args.title) ? args.title() : args.title, callback);
                 return false;
             });
         });
@@ -243,7 +243,7 @@
     //  
     $.fn.confirm = function (args, callback) {
         args = args || {};
-        if($.type(args) === "string") {
+        if ($.type(args) === "string") {
             args = {
                 text: args
             };
@@ -256,7 +256,7 @@
                     e.preventDefault();
                     $.confirm($.isFunction(args.text) ? args.text() : args.text, function (result) {
                         callback = callback || args.callback;
-                        if(callback) {
+                        if (callback) {
                             callback(result);
                         } else {
                             if (result) {
@@ -271,7 +271,7 @@
                                 }
                             }
                         }
-                    }, $.isFunction(args.title) ? args.title() : args.title);
+                    }, $.isFunction(args.title) ? args.title() : args.title, args.buttonOk, args.buttonCancel);
                     return false;
                 }
             });
